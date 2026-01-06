@@ -10,7 +10,7 @@ type Command struct {
 	name string
 }
 
-// NewCommand creates and returns a new Command instance with the specified.
+// NewCommand creates and returns a new Command instance with the specified name and arguments.
 //
 // Parameters:
 //   - name: The name of the command to be executed.
