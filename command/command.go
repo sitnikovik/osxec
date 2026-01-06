@@ -1,5 +1,7 @@
 package command
 
+import "strings"
+
 // Command represents a system command with its name and arguments.
 type Command struct {
 	// args holds the arguments for the command.
@@ -21,4 +23,16 @@ func NewCommand(
 		args: args,
 		name: name,
 	}
+}
+
+// String returns a string representation of the Command,
+// combining the command name and its arguments.
+func (c Command) String() string {
+	if c.name == "" {
+		return ""
+	}
+	if len(c.args) == 0 {
+		return c.name
+	}
+	return c.name + " " + strings.Join(c.args, " ")
 }

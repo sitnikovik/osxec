@@ -54,3 +54,35 @@ func TestNewCommand(t *testing.T) {
 		assert.Equal(t, want, got)
 	})
 }
+
+func TestString(t *testing.T) {
+	t.Parallel()
+	t.Run("cmd and args", func(t *testing.T) {
+		t.Parallel()
+		got := NewCommand("docker stop", "container_id", "--force").String()
+		assert.Equal(
+			t,
+			"docker stop container_id --force",
+			got,
+		)
+	})
+	t.Run("only cmd", func(t *testing.T) {
+		t.Parallel()
+		got := NewCommand("docker stop").String()
+		assert.Equal(t, "docker stop", got)
+	})
+	t.Run("only args", func(t *testing.T) {
+		t.Parallel()
+		got := NewCommand("", "container_id", "--force").String()
+		assert.Empty(t, got)
+	})
+	t.Run("zero value args", func(t *testing.T) {
+		t.Parallel()
+		var (
+			name string
+			args []string
+		)
+		got := NewCommand(name, args...).String()
+		assert.Empty(t, got)
+	})
+}
