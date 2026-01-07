@@ -50,8 +50,6 @@ func (l Lines) Last() string {
 // slice (e.g., -1 refers to the last line, -2 to the second-to-last, etc.).
 // It returns an empty string if there are no lines or if the index is out of
 // bounds.
-//
-// For example, At(-1) returns the last line, At(-2) returns the second to last line, and so on.
 func (l Lines) At(idx int) string {
 	n := l.Len()
 	if idx < 0 {
