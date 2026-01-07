@@ -46,14 +46,18 @@ func (l Lines) Last() string {
 
 // At returns the line at the specified index.
 //
-// It returns an empty string if the index is out of bounds.
+// If the index is out of bounds, it returns an empty string.
+//
+// The method supports negative indexing, where -1 refers to the last line,
+// -2 to the second last line, and so on.
+// For example, At(-1) returns the last line, At(-2) returns the second to last line, and so on.
 func (l Lines) At(idx int) string {
 	n := l.Len()
-	if n == 0 || idx >= n {
-		return ""
-	}
 	if idx < 0 {
 		idx = n + idx
+	}
+	if idx < 0 || idx >= n {
+		return ""
 	}
 	return l[idx]
 }

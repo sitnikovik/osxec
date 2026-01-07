@@ -204,6 +204,34 @@ func TestLines_At(t *testing.T) {
 			want: "line2",
 		},
 		{
+			name: "out of bound",
+			lines: []string{
+				"line1",
+				"line2",
+				"line3",
+			},
+			idx: 3,
+		},
+		{
+			name: "negative out of bound",
+			lines: []string{
+				"line1",
+				"line2",
+				"line3",
+			},
+			idx:  -3,
+			want: "line1",
+		},
+		{
+			name: "quite negative out of bound",
+			lines: []string{
+				"line1",
+				"line2",
+				"line3",
+			},
+			idx: -4,
+		},
+		{
 			name:  "empty",
 			lines: []string{},
 		},
