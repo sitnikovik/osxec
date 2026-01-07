@@ -46,10 +46,11 @@ func (l Lines) Last() string {
 
 // At returns the line at the specified index.
 //
-// If the index is out of bounds, it returns an empty string.
+// If idx is negative, it is interpreted as an offset from the end of the
+// slice (e.g., -1 refers to the last line, -2 to the second-to-last, etc.).
+// It returns an empty string if there are no lines or if the index is out of
+// bounds.
 //
-// The method supports negative indexing, where -1 refers to the last line,
-// -2 to the second last line, and so on.
 // For example, At(-1) returns the last line, At(-2) returns the second to last line, and so on.
 func (l Lines) At(idx int) string {
 	n := l.Len()
