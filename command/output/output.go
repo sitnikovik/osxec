@@ -14,8 +14,13 @@ type Output struct {
 // Parameters:
 //   - stdout: A byte slice representing the standard output of the command.
 func NewOutput(stdout []byte) Output {
+	var out []byte
+	if len(stdout) > 0 {
+		out = make([]byte, len(stdout))
+		copy(out, stdout)
+	}
 	return Output{
-		stdout: stdout,
+		stdout: out,
 	}
 }
 
