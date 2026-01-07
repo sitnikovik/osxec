@@ -18,6 +18,10 @@ linters:
     - unparam
     - gocyclo
     - goimports
+    - paralleltest
+  linters-settings:
+    paralleltest:
+      path: ./tools/paralleltest.go
   disable:
     - typecheck
 
