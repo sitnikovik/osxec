@@ -19,9 +19,6 @@ linters:
     - gocyclo
     - goimports
     - paralleltest
-  linters-settings:
-    paralleltest:
-      path: ./tools/paralleltest.go
   disable:
     - typecheck
 
@@ -36,6 +33,8 @@ linters-settings:
       - name: package-comments
         severity: warning
         disabled: false
+  paralleltest:
+    path: ./tools/paralleltest.go
 
 issues:
   exclude-use-default: false
