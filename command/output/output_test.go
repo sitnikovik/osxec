@@ -137,15 +137,12 @@ func TestOutput_Lines(t *testing.T) {
 		want   Lines
 	}{
 		{
-			name: "with new lines",
-			stdout: []byte(`line1
-line2
-line3`),
-
+			name:   "with new lines",
+			stdout: []byte("line1\nline2\n"),
 			want: NewLines([]string{
 				"line1",
 				"line2",
-				"line3",
+				"",
 			}),
 		},
 		{
