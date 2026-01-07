@@ -213,7 +213,7 @@ func TestLines_At(t *testing.T) {
 			idx: 3,
 		},
 		{
-			name: "negative out of bound",
+			name: "negative index to first element",
 			lines: []string{
 				"line1",
 				"line2",
@@ -223,7 +223,7 @@ func TestLines_At(t *testing.T) {
 			want: "line1",
 		},
 		{
-			name: "quite negative out of bound",
+			name: "negative out of bound",
 			lines: []string{
 				"line1",
 				"line2",
