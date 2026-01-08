@@ -86,3 +86,90 @@ func TestString(t *testing.T) {
 		assert.Empty(t, got)
 	})
 }
+
+func TestCommand_Name(t *testing.T) {
+	t.Parallel()
+	type fields struct {
+		args []string
+		name string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{
+			name: "with name",
+			fields: fields{
+				name: "docker run",
+				args: []string{"container_id", "--force"},
+			},
+			want: "docker run",
+		},
+		{
+			name: "empty name",
+			fields: fields{
+				args: []string{"container_id", "--force"},
+			},
+		},
+		{
+			name: "zero value",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := NewCommand(
+				tt.fields.name,
+				tt.fields.args...,
+			).Name()
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
+
+func TestCommand_Args(t *testing.T) {
+	t.Parallel()
+	type fields struct {
+		args []string
+		name string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   []string
+	}{
+		{
+			name: "with args",
+			fields: fields{
+				name: "docker run",
+				args: []string{"container_id", "--force"},
+			},
+			want: []string{"container_id", "--force"},
+		},
+		{
+			name: "empty args",
+			fields: fields{
+				name: "docker run",
+				args: []string{},
+			},
+		},
+		{
+			name: "zero value",
+			fields: fields{
+				name: "",
+				args: nil,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := NewCommand(
+				tt.fields.name,
+				tt.fields.args...,
+			).Args()
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
