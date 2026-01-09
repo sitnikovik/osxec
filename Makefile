@@ -14,7 +14,7 @@ test:
 .PHONY: unit-test
 unit-test:
 	@echo 🧪 Running unit tests...
-	@pkgs=$$(go list ./... | grep -v 'test/integration$$'); \
+	@pkgs=$$(go list ./... | grep -v './internal/test/integration$$'); \
 	if [ -n "$$pkgs" ]; then \
 		go test $$pkgs; \
 	else \
