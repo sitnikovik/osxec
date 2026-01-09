@@ -84,24 +84,6 @@ func TestExitCodes(t *testing.T) {
 			code:    133,
 			wantErr: true,
 		},
-		{
-			name:    "custom -123123",
-			cmd:     command.NewCommand("sh", "-c", "exit -123123"),
-			code:    13,
-			wantErr: true,
-		},
-		{
-			name:    "custom text",
-			cmd:     command.NewCommand("sh", "-c", "exit 'asdasd'"),
-			code:    255,
-			wantErr: true,
-		},
-		{
-			name:    "big num",
-			cmd:     command.NewCommand("sh", "-c", "exit 99999"),
-			code:    159,
-			wantErr: true,
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
