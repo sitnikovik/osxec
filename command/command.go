@@ -1,6 +1,8 @@
 package command
 
-import "strings"
+import (
+	"strings"
+)
 
 // Command represents a system command with its name and arguments.
 type Command struct {
@@ -19,8 +21,13 @@ func NewCommand(
 	name string,
 	args ...string,
 ) Command {
+	var aa []string
+	if len(args) > 0 {
+		aa = make([]string, len(args))
+		copy(aa, args)
+	}
 	return Command{
-		args: args,
+		args: aa,
 		name: name,
 	}
 }
@@ -35,4 +42,19 @@ func (c Command) String() string {
 		return c.name
 	}
 	return c.name + " " + strings.Join(c.args, " ")
+}
+
+// Name returns the name of the Command.
+func (c Command) Name() string {
+	return c.name
+}
+
+// Args returns a copy of the arguments slice of the Command.
+func (c Command) Args() []string {
+	if len(c.args) == 0 {
+		return nil
+	}
+	res := make([]string, len(c.args))
+	copy(res, c.args)
+	return res
 }
