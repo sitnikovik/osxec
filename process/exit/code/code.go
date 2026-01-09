@@ -14,13 +14,9 @@ var (
 )
 
 // Code represents the exit code of a process.
-type Code int16
+type Code uint8
 
 const (
-	// Unknown represents an unknown exit code.
-	//
-	// This exit code is used when the actual exit code cannot be determined or parsed.
-	Unknown Code = -1
 	// Success indicates that the process completed successfully.
 	//
 	// This exit code is commonly used to indicate that a program has
@@ -37,14 +33,15 @@ const (
 //
 // The code parameter can be of type uint8, int, or string.
 // It converts the provided value to a Code type accordingly.
-// If the conversion fails, it returns an error.
+//
+// If the conversion fails, it returns an error and Failure code.
 func ParseCode[T uint8 | int | string](code T) (Code, error) {
 	switch v := any(code).(type) {
 	case uint8:
 		return Code(v), nil
 	case int:
 		if v < 0 || v > 255 {
-			return Unknown, fmt.Errorf(
+			return Failure, fmt.Errorf(
 				"%w from '%d': value out of range [0-255]",
 				ErrNotParsable,
 				v,
@@ -54,7 +51,7 @@ func ParseCode[T uint8 | int | string](code T) (Code, error) {
 	case string:
 		n, err := strconv.ParseUint(v, 10, 8)
 		if err != nil {
-			return Unknown, fmt.Errorf(
+			return Failure, fmt.Errorf(
 				"%w from '%s': %v",
 				ErrNotParsable,
 				v,
@@ -63,7 +60,7 @@ func ParseCode[T uint8 | int | string](code T) (Code, error) {
 		}
 		return Code(uint8(n)), nil
 	default:
-		return Unknown, ErrUnsupportedType
+		return Failure, ErrUnsupportedType
 	}
 }
 

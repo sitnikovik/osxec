@@ -30,14 +30,14 @@ func TestParseCodess(t *testing.T) {
 		var n int = 256
 		got, err := code.ParseCode(n)
 		assert.ErrorIs(t, err, code.ErrNotParsable)
-		assert.Equal(t, code.Unknown, got)
+		assert.Equal(t, code.Failure, got)
 	})
 	t.Run("out of range negative int", func(t *testing.T) {
 		t.Parallel()
 		var n int = -1
 		got, err := code.ParseCode(n)
 		assert.ErrorIs(t, err, code.ErrNotParsable)
-		assert.Equal(t, code.Unknown, got)
+		assert.Equal(t, code.Failure, got)
 	})
 	t.Run("valid string", func(t *testing.T) {
 		t.Parallel()
@@ -49,19 +49,19 @@ func TestParseCodess(t *testing.T) {
 	t.Run("word", func(t *testing.T) {
 		t.Parallel()
 		got, err := code.ParseCode("foo")
-		assert.Equal(t, code.Unknown, got)
+		assert.Equal(t, code.Failure, got)
 		assert.ErrorIs(t, err, code.ErrNotParsable)
 	})
 	t.Run("out of range string", func(t *testing.T) {
 		t.Parallel()
 		got, err := code.ParseCode("300")
-		assert.Equal(t, code.Unknown, got)
+		assert.Equal(t, code.Failure, got)
 		assert.ErrorIs(t, err, code.ErrNotParsable)
 	})
 	t.Run("out of range negative string", func(t *testing.T) {
 		t.Parallel()
 		got, err := code.ParseCode("-13")
-		assert.Equal(t, code.Unknown, got)
+		assert.Equal(t, code.Failure, got)
 		assert.ErrorIs(t, err, code.ErrNotParsable)
 	})
 }
