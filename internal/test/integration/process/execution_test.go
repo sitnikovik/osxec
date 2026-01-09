@@ -1,7 +1,7 @@
 //go:build integration
 // +build integration
 
-package shell
+package process_test
 
 import (
 	"context"
@@ -28,7 +28,7 @@ func TestExecution(t *testing.T) {
 			).
 			Execution(ctx)
 		require.NoError(t, res.Err())
-		assert.Equal(t, res.String(), "Hello, World!\n")
+		assert.Equal(t, "Hello, World!\n", res.String())
 	})
 	t.Run("wrong command", func(t *testing.T) {
 		t.Parallel()
