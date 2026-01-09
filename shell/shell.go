@@ -2,7 +2,6 @@ package shell
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"os/exec"
 
@@ -36,7 +35,7 @@ func (s Shell) Execution(
 			cmd.Args()...,
 		).
 		CombinedOutput()
-	if err != nil && errors.Is(ctx.Err(), context.DeadlineExceeded) {
+	if err != nil && ctx.Err() == context.DeadlineExceeded {
 		err = fmt.Errorf("%w: %w", ctx.Err(), err)
 	}
 	return proc.NewExecution(bb, err)
