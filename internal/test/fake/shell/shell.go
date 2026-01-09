@@ -42,13 +42,7 @@ func NewShell(opts ...Option) *Shell {
 }
 
 // Execution executes the given command and returns its execution result.
-//
-// If context is done before execution, it returns an error execution with context error.
-//
-// Parameters:
-//   - ctx: The context for managing the command execution lifecycle.
-//   - cmd: The command to be executed.
-func (s Shell) Execution(
+func (s *Shell) Execution(
 	ctx context.Context,
 	cmd command.Command,
 ) proc.Execution {
