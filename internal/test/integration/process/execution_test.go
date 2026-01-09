@@ -51,10 +51,9 @@ func TestExecution(t *testing.T) {
 		res := process.
 			NewProcess(
 				shell.NewShell(),
-				command.NewCommand("sleep", "3"),
+				command.NewCommand("sleep", "2"),
 			).
 			Execution(ctx)
-		time.Sleep(2 * time.Second)
 		err := res.Err()
 		require.Error(t, err)
 		assert.Contains(t, err.Error(), "signal: killed")
