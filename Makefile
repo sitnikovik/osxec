@@ -5,7 +5,26 @@ check: test lint
 
 .PHONY: test
 test:
-	@go test ./... -race -count=1
+	@$(MAKE) unit-test || { \
+		echo "❌ Unit tests failed; skipping integration tests"; \
+		exit 1; \
+	}
+	@$(MAKE) integration-test
+
+.PHONY: unit-test
+unit-test:
+	@echo 🧪 Running unit tests...
+	@pkgs=$$(go list ./... | grep -v 'test/integration$$'); \
+	if [ -n "$$pkgs" ]; then \
+		go test $$pkgs; \
+	else \
+		echo "no packages to test"; \
+	fi
+
+.PHONY: integration-test
+integration-test:
+	@echo 🧪 Running integration tests...
+	@go test -tags=integration ./internal/test/integration/... -race -count=1
 
 .PHONY: lint
 lint:
