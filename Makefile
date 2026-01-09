@@ -16,7 +16,7 @@ unit-test:
 	@echo 🧪 Running unit tests...
 	@pkgs=$$(go list ./... | grep -v './internal/test/integration$$'); \
 	if [ -n "$$pkgs" ]; then \
-		go test $$pkgs; \
+		go test -race -count=1 $$pkgs; \
 	else \
 		echo "no packages to test"; \
 	fi
