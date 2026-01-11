@@ -32,8 +32,8 @@ lint:
 
 
 
-.PHONY: test-coverage
-test-coverage:
+.PHONY: coverage
+coverage:
 	@echo 🧪 Calculating test coverage...
 	@mkdir -p tmp
 	@pkgs=$$(go list ./... | grep -v 'internal/test/integration$$'); \
