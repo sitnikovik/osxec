@@ -70,3 +70,8 @@ coverage:
 	awk 'NR>1 {n=NF; if($$n==0){ split($$1,a,":"); file=a[1]; split(a[2],b,","); split(b[1],c,"\\."); start=c[1]; split(b[2],d,"\\."); end=d[1]; print file ":" start "-" end } }' tmp/coverage.out \
 		| sed 's#^github.com/sitnikovik/osxec/##' \
 		| sort -u > tmp/uncovered.out; \
+
+.PHONY: coverage-check
+coverage-check:
+	@echo 🧪 Checking test coverage...
+	@sh scripts/check_coverage.sh
