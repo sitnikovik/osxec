@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# This script checks if the code coverage percentage meets a specified threshold.
+# It requires the COVERAGE_THRESHOLD environment variable to be set.
+# Usage: coverage_check.sh [path_to_coverage_percent_file]
 
 PERCENT_FILE=${1:-tmp/coverage_total.out}
 THRESHOLD=${COVERAGE_THRESHOLD}
