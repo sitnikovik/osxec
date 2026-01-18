@@ -48,4 +48,5 @@ jobs:
           cache: true
       - name: Run coverage check
         run: |
-          make coverage-check COVERAGE_THRESHOLD=90
+          source .github/ci.env
+          make coverage-check

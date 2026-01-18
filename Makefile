@@ -1,5 +1,8 @@
 .DEFAULT_GOAL = check
 
+-include .github/ci.env
+COVERAGE_THRESHOLD ?= 90
+
 .PHONY: check
 check: test lint coverage-check
 
@@ -29,8 +32,6 @@ integration-test:
 .PHONY: lint
 lint:
 	@golangci-lint run
-
-
 
 .PHONY: coverage
 coverage:
@@ -74,4 +75,4 @@ coverage:
 .PHONY: coverage-check
 coverage-check:
 	@echo 🧪 Checking test coverage...
-	@sh scripts/coverage_check.sh
+	@COVERAGE_THRESHOLD=$(COVERAGE_THRESHOLD) sh scripts/coverage_check.sh
