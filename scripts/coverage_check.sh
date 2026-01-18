@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
 PERCENT_FILE=${1:-tmp/coverage_total.out}
-THRESHOLD=${COVERAGE_THRESHOLD:-90}
+THRESHOLD=${COVERAGE_THRESHOLD}
+
+# Ensure threshold is specified.
+if [ -z "$THRESHOLD" ] || [ "$THRESHOLD" -eq 0 ]; then
+    echo "❌ COVERAGE_THRESHOLD is not specified" >&2
+    exit 1
+fi
 
 # Run coverage generation first even though this is a check script.
 if ! make coverage >/dev/null 2>&1; then
-    echo "make coverage failed" >&2
+    echo "❌ make coverage failed" >&2
     exit 1
 fi
 if [ ! -f "$PERCENT_FILE" ]; then
-    echo "Coverage percent file missing: $PERCENT_FILE" >&2
+    echo "❌ Coverage percent file missing: $PERCENT_FILE" >&2
     exit 1
 fi
 
@@ -17,7 +23,7 @@ fi
 VAL=$(tr -d '\r\n' < "$PERCENT_FILE")
 VAL=${VAL%\%}
 if ! printf '%s' "$VAL" | awk '/^([0-9]*\.[0-9]+|[0-9]+)$/ { exit 0 } { exit 1 }'; then
-    echo "Invalid coverage value: $VAL" >&2
+    echo "❌ Invalid coverage value: $VAL" >&2
     exit 1
 fi
 
