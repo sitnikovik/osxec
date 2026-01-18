@@ -3,9 +3,11 @@
 -include .github/ci.env
 COVERAGE_THRESHOLD ?= 90
 
+# Run all checks required to validate the codebase before merging.
 .PHONY: check
 check: test lint coverage-check
 
+# Run all tests in the project.
 .PHONY: test
 test:
 	@$(MAKE) unit-test || { \
@@ -14,6 +16,7 @@ test:
 	}
 	@$(MAKE) integration-test
 
+# Run unit tests.
 .PHONY: unit-test
 unit-test:
 	@echo 🧪 Running unit tests...
@@ -24,15 +27,21 @@ unit-test:
 		echo "no packages to test"; \
 	fi
 
+# Run integration tests.
 .PHONY: integration-test
 integration-test:
 	@echo 🧪 Running integration tests...
 	@go test -tags=integration ./internal/test/integration/... -race -count=1
 
+# Lint the codebase.
 .PHONY: lint
 lint:
 	@golangci-lint run
 
+# Generate coverage report combining unit and integration tests.
+# Outputs total coverage percentage to tmp/coverage_total.out,
+# covered lines to tmp/coverage_*.out
+# and uncovered lines to tmp/uncovered.out.
 .PHONY: coverage
 coverage:
 	@echo 🧪 Calculating test coverage...
@@ -70,7 +79,7 @@ coverage:
 	printf '%s' "$$percent_no_pct" > tmp/coverage_total.out; \
 	awk 'NR>1 {n=NF; if($$n==0){ split($$1,a,":"); file=a[1]; split(a[2],b,","); split(b[1],c,"\\."); start=c[1]; split(b[2],d,"\\."); end=d[1]; print file ":" start "-" end } }' tmp/coverage.out \
 		| sed 's#^github.com/sitnikovik/osxec/##' \
-		| sort -u > tmp/uncovered.out; \
+		| sort -u > tmp/uncovered.out;
 
 .PHONY: coverage-check
 coverage-check:
