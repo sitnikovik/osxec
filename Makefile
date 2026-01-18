@@ -43,7 +43,7 @@ coverage:
 		-covermode=count \
 		-coverprofile=tmp/coverage_unit.out \
 		$$pkgs \
-		>/dev/null; \
+		>tmp/make_coverage_unit.log; \
 		if [ -f tmp/coverage_unit.out ] && [ $$(wc -l < tmp/coverage_unit.out) -le 1 ]; then \
 			rm -f tmp/coverage_unit.out; \
 		fi; \
@@ -54,7 +54,7 @@ coverage:
 		-covermode=count \
 		-coverprofile=tmp/coverage_integration.out \
 		./internal/test/integration/... \
-		>/dev/null; \
+		>tmp/make_coverage_integration.log; \
 	if [ -f tmp/coverage_integration.out ] && [ $$(wc -l < tmp/coverage_integration.out) -le 1 ]; then \
 		rm -f tmp/coverage_integration.out; \
 	fi
@@ -64,7 +64,7 @@ coverage:
 			tail -n +2 $$f >> tmp/coverage.out; \
 		fi; \
 	done
-	@percent=$$(go tool cover -func=tmp/coverage.out 2>/dev/null | tail -n1 | awk '{print $$NF}'); \
+	@percent=$$(go tool cover -func=tmp/coverage.out > tmp/make_coverage_func.log; tail -n1 tmp/make_coverage_func.log | awk '{print $$NF}'); \
 	echo "Total test coverage: $$percent"; \
 	percent_no_pct=$${percent%\%}; \
 	printf '%s' "$$percent_no_pct" > tmp/coverage_total.out; \
