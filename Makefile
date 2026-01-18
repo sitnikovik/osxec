@@ -81,6 +81,7 @@ coverage:
 		| sed 's#^github.com/sitnikovik/osxec/##' \
 		| sort -u > tmp/uncovered.out;
 
+# Check if the total test coverage meets the defined threshold.
 .PHONY: coverage-check
 coverage-check:
 	@echo 🧪 Checking test coverage...
