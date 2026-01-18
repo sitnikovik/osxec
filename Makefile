@@ -1,7 +1,7 @@
 .DEFAULT_GOAL = check
 
 .PHONY: check
-check: test lint
+check: test lint coverage-check
 
 .PHONY: test
 test:
@@ -74,4 +74,4 @@ coverage:
 .PHONY: coverage-check
 coverage-check:
 	@echo 🧪 Checking test coverage...
-	@sh scripts/check_coverage.sh
+	@sh scripts/coverage_check.sh
