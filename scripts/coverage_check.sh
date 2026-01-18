@@ -8,7 +8,7 @@ PERCENT_FILE=${1:-tmp/coverage_total.out}
 THRESHOLD=${COVERAGE_THRESHOLD}
 
 # Ensure threshold is specified.
-if [ -z "$THRESHOLD" ] || [ "$THRESHOLD" -eq 0 ]; then
+if [ -z "$THRESHOLD" ] || [ "$THRESHOLD" = "0" ] || [ "$THRESHOLD" = "" ]; then
     echo "❌ COVERAGE_THRESHOLD is not specified" >&2
     exit 1
 fi
