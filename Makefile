@@ -1,7 +1,6 @@
 .DEFAULT_GOAL = check
 
 -include .github/ci.env
-COVERAGE_THRESHOLD ?= 90
 
 # Run all checks required to validate the codebase before merging.
 .PHONY: check
